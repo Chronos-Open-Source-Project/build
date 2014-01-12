@@ -66,12 +66,12 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^iokp_") ; then
-       IOKP_PRODUCT=$(echo -n $1 | sed -e 's/^iokp_//g')
+    if (echo -n $1 | grep -q -e "^chronos_") ; then
+       CHRONOS_PRODUCT=$(echo -n $1 | sed -e 's/^chronos_//g')
     else
-       IOKP_PRODUCT=
+       CHRONOS_PRODUCT=
     fi
-      export IOKP_PRODUCT
+      export CHRONOS_PRODUCT
 
     CALLED_FROM_SETUP=true BUILD_SYSTEM=build/core \
         TARGET_PRODUCT=$1 \
@@ -453,7 +453,7 @@ function print_lunch_menu()
     echo
     echo "You're building on" $uname
     echo
-    if [ "z${IOKP_DEVICES_ONLY}" != "z" ]; then
+    if [ "z${CHRONOS_DEVICES_ONLY}" != "z" ]; then
        echo "Breakfast menu... pick a combo:"
     else
        echo "Lunch menu... pick a combo:"
@@ -467,7 +467,7 @@ function print_lunch_menu()
         i=$(($i+1))
     done
 
-    if [ "z${IOKP_DEVICES_ONLY}" != "z" ]; then
+    if [ "z${CHRONOS_DEVICES_ONLY}" != "z" ]; then
        echo "... and don't forget the bacon!"
     fi
 
@@ -489,10 +489,10 @@ function brunch()
 function breakfast()
 {
     target=$1
-    IOKP_DEVICES_ONLY="true"
+    CHRONOS_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/iokp/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/chronos/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -508,8 +508,8 @@ function breakfast()
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            # This is probably just the IOKP model name
-            lunch iokp_$target-userdebug
+            # This is probably just the chronos model name
+            lunch chronos_$target-userdebug
         fi
     fi
     return $?
@@ -645,7 +645,7 @@ function tapas()
 function eat()
 {
     if [ "$OUT" ] ; then
-        MODVERSION=`sed -n -e'/ro\.iokp\.version/s/^.*=//p' $OUT/system/build.prop`
+        MODVERSION=`sed -n -e'/ro\.CHRONOS\.version/s/^.*=//p' $OUT/system/build.prop`
         ZIPFILE=$MODVERSION.zip
         ZIPPATH=$OUT/$ZIPFILE
         if [ ! -f $ZIPPATH ] ; then
@@ -1439,7 +1439,7 @@ function mka() {
 function mbot() {
     unset LUNCH_MENU_CHOICES
     croot
-    ./vendor/iokp/bot/deploy.sh
+    ./vendor/chronos/bot/deploy.sh
 }
 
 function mkapush() {
@@ -1553,7 +1553,7 @@ function taco() {
         breakfast $sauce
         if [ $? -eq 0 ]; then
             croot
-            ./vendor/iokp/bot/build_device.sh iokp_$sauce-userdebug $sauce
+            ./vendor/chronos/bot/build_device.sh chronos_$sauce-userdebug $sauce
         else
             echo "No such item in brunch menu. Try 'breakfast'"
         fi
