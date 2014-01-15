@@ -465,15 +465,14 @@ def WriteFullOTAPackage(input_zip, output_zip):
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
-  script.Print("******************************************");
-  script.Print("*         _____ ____  _  _______         *") 
-  script.Print("*        |_   _/ __ \| |/ /  __ \        *") 
-  script.Print("*          | || |  | | ' /| |__) |       *") 
-  script.Print("*          | || |  | |  < |  ___/        *") 
-  script.Print("*         _| || |__| | . \| |            *") 
-  script.Print("*        |_____\____/|_|\_\_|            *") 
-  script.Print("*                                        *") 
-  script.Print("******************************************");
+  script.Print("*******************************************");
+  script.Print("*    ___ _                                *");
+  script.Print("*   / __\ |__  _ __ ___  _ __   ___  ___  *");
+  script.Print("*  / /  | '_ \| '__/ _ \| '_ \ / _ \/ __| *");
+  script.Print("* / /___| | | | | | (_) | | | | (_) \__ \ *");
+  script.Print("* \____/|_| |_|_|  \___/|_| |_|\___/|___/ *");
+  script.Print("*                                         *");
+  script.Print("*******************************************");
 
   chronosv = GetBuildProp("ro.chronos.version", OPTIONS.info_dict)
   if os.getenv("chronos_BUILD") is not None:
